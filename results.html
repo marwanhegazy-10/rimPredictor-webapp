@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    {% include 'base.html' %}
+    <div class="container">
+        <h1>Prediction Results</h1>
+        {% if predictions %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Team</th>
+                        <th>Opponent</th>
+                        <th>Predicted Outcome</th>
+                        <th>Actual Outcome</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for prediction in predictions %}
+                        <tr>
+                            <td>{{ prediction.team }}</td>
+                            <td>{{ prediction.opponent }}</td>
+                            <td>{{ prediction.predicted_outcome }}</td>
+                            <td>{{ prediction.actual_outcome }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="statistics">
+                <h2>Statistics</h2>
+                <p>Accuracy: {{ accuracy }}%</p>
+                <p>Total Games Predicted: {{ total_games }}</p>
+            </div>
+        {% else %}
+            <p>No predictions available. Please run the prediction process.</p>
+        {% endif %}
+        <a href="{{ url_for('index') }}" class="btn">Back to Home</a>
+    </div>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>
